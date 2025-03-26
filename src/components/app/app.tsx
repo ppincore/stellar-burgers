@@ -36,6 +36,16 @@ const App = () => {
   const isAuth = useSelector(selectIsAuthenticated);
   const accessToken = getCookie('token');
 
+  useEffect(() => {
+    if (!feed.length) {
+      dispatch(fetchFeed());
+    }
+  }, []);
+  useEffect(() => {
+    if (!ingredients.length) {
+      dispatch(fetchIngredients());
+    }
+  }, []);
   return (
     <div className={styles.app}>
       <AppHeader />
