@@ -21,9 +21,11 @@ import {
   fetchIngredients,
   getUserThunk,
   init,
+  selectIsModalOpened,
   selectIngredients,
   selectIsAuthenticated,
-  selectOrders
+  selectOrders,
+  closeModal
 } from '../../slices/burgerSlice';
 import { useEffect } from 'react';
 import { getCookie } from '../../utils/cookie';
@@ -35,7 +37,7 @@ const App = () => {
   const ingredients = useSelector(selectIngredients);
   const isAuth = useSelector(selectIsAuthenticated);
   const accessToken = getCookie('token');
-
+  const isModalOpened = useSelector(selectIsModalOpened);
   useEffect(() => {
     if (!feed.length) {
       dispatch(fetchFeed());
@@ -108,7 +110,9 @@ const App = () => {
               <Modal
                 children={<OrderInfo />}
                 title={'Заказ'}
-                onClose={() => {}}
+                onClose={() => {
+                  dispatch(closeModal());
+                }}
               />
             </ProtectedRoute>
           }
@@ -119,7 +123,9 @@ const App = () => {
             <Modal
               children={<OrderInfo />}
               title={'Заказ'}
-              onClose={() => {}}
+              onClose={() => {
+                dispatch(closeModal());
+              }}
             />
           }
         />
@@ -130,7 +136,9 @@ const App = () => {
               <Modal
                 children={<IngredientDetails />}
                 title={'Описание ингредиента'}
-                onClose={() => {}}
+                onClose={() => {
+                  dispatch(closeModal());
+                }}
               />
             </ProtectedRoute>
           }
