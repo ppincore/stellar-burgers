@@ -6,7 +6,7 @@ import {
   moveIngredientDown,
   moveIngredientUp,
   deleteIngredient
-} from '../..//slices/burgerSlice';
+} from '../../slices/burgerSlice';
 
 export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
   ({ ingredient, index, totalItems }) => {
