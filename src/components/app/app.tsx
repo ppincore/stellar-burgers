@@ -9,7 +9,7 @@ import {
   Register,
   ResetPassword
 } from '@pages';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import ProtectedRoute from '../protected-route/protected-route';
 import '../../index.css';
 import styles from './app.module.css';
@@ -38,6 +38,11 @@ const App = () => {
   const isAuth = useSelector(selectIsAuthenticated);
   const accessToken = getCookie('token');
   const isModalOpened = useSelector(selectIsModalOpened);
+  const navigate = useNavigate();
+  const handleModalClose = () => {
+    dispatch(closeModal());
+    navigate(-1);
+  };
   useEffect(() => {
     if (!feed.length) {
       dispatch(fetchFeed());
@@ -58,7 +63,7 @@ const App = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute unAuth>
               <Login />
             </ProtectedRoute>
           }
@@ -66,7 +71,7 @@ const App = () => {
         <Route
           path='/register'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute unAuth>
               <Register />
             </ProtectedRoute>
           }
@@ -74,7 +79,7 @@ const App = () => {
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute unAuth>
               <ForgotPassword />
             </ProtectedRoute>
           }
@@ -82,7 +87,7 @@ const App = () => {
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute unAuth>
               <ResetPassword />
             </ProtectedRoute>
           }
@@ -110,9 +115,7 @@ const App = () => {
               <Modal
                 children={<OrderInfo />}
                 title={'Заказ'}
-                onClose={() => {
-                  dispatch(closeModal());
-                }}
+                onClose={handleModalClose}
               />
             </ProtectedRoute>
           }

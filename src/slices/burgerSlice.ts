@@ -13,6 +13,7 @@ import {
 } from '../utils/burger-api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorItems, TIngredient, TOrder, TUser } from '@utils-types';
+import { deleteCookie } from '../utils/cookie';
 
 type TInitialState = {
   ingredients: TIngredient[];
@@ -241,6 +242,8 @@ const stellarBurgerSlice = createSlice({
         if (action.payload.success) {
           state.userInfo = { name: '', email: '' };
           state.isAuthenticated = false;
+          deleteCookie('accessToken');
+          localStorage.removeItem('refreshToken')
         }
       })
       .addCase(fetchUpdateUser.pending, (state) => {
