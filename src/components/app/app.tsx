@@ -19,8 +19,8 @@ import { AppHeader, Modal, OrderInfo, IngredientDetails } from '@components';
 import {
   fetchFeed,
   fetchIngredients,
-  getUserThunk,
-  init,
+  getUser,
+  initUser,
   selectIsModalOpened,
   selectIngredients,
   selectIsAuthenticated,
@@ -32,13 +32,14 @@ import { getCookie } from '../../utils/cookie';
 
 const App = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const feed = useSelector(selectOrders);
   const ingredients = useSelector(selectIngredients);
-  const isAuth = useSelector(selectIsAuthenticated);
-  const accessToken = getCookie('token');
-  const isModalOpened = useSelector(selectIsModalOpened);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
+
   const handleModalClose = () => {
     dispatch(closeModal());
     navigate(-1);
@@ -53,6 +54,7 @@ const App = () => {
       dispatch(fetchIngredients());
     }
   }, []);
+
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -126,9 +128,7 @@ const App = () => {
             <Modal
               children={<OrderInfo />}
               title={'Заказ'}
-              onClose={() => {
-                dispatch(closeModal());
-              }}
+              onClose={handleModalClose}
             />
           }
         />
@@ -139,9 +139,7 @@ const App = () => {
               <Modal
                 children={<IngredientDetails />}
                 title={'Описание ингредиента'}
-                onClose={() => {
-                  dispatch(closeModal());
-                }}
+                onClose={handleModalClose}
               />
             </ProtectedRoute>
           }
