@@ -1,3 +1,6 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TConstructorItems, TIngredient, TOrder, TUser } from '@utils-types';
+import { deleteCookie, setCookie } from '../utils/cookie';
 import {
   TLoginData,
   TRegisterData,
@@ -11,9 +14,7 @@ import {
   registerUserApi,
   updateUserApi
 } from '../utils/burger-api';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TConstructorItems, TIngredient, TOrder, TUser } from '@utils-types';
-import { deleteCookie } from '../utils/cookie';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 type TInitialState = {
   ingredients: TIngredient[];
@@ -86,7 +87,7 @@ const stellarBurgerSlice = createSlice({
     removeUserOrders(state) {
       state.userOrders = null;
     },
-    init(state) {
+    initUser(state) {
       state.isInit = true;
     },
     openModal(state) {
@@ -176,13 +177,15 @@ const stellarBurgerSlice = createSlice({
       .addCase(fetchLoginUser.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchLoginUser.rejected, (state, action) => {
-        state.loading = false;
-        state.errorText = action.error.message!;
-      })
       .addCase(fetchLoginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isAuthenticated = true;
+        setCookie('accessToken', action.payload.accessToken);
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
+      })
+      .addCase(fetchLoginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.errorText = action.error.message!;
       })
       .addCase(fetchRegisterUser.pending, (state) => {
         state.loading = true;
@@ -194,16 +197,18 @@ const stellarBurgerSlice = createSlice({
       .addCase(fetchRegisterUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isAuthenticated = true;
+        setCookie('accessToken', action.payload.accessToken);
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
       })
-      .addCase(getUserThunk.pending, (state) => {
+      .addCase(getUser.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getUserThunk.rejected, (state, action) => {
+      .addCase(getUser.rejected, (state, action) => {
         state.loading = false;
         state.isAuthenticated = false;
         state.userInfo = { name: '', email: '' };
       })
-      .addCase(getUserThunk.fulfilled, (state, action) => {
+      .addCase(getUser.fulfilled, (state, action) => {
         state.loading = false;
         state.userInfo.name = action.payload.user.name;
         state.userInfo.email = action.payload.user.email;
@@ -243,7 +248,7 @@ const stellarBurgerSlice = createSlice({
           state.userInfo = { name: '', email: '' };
           state.isAuthenticated = false;
           deleteCookie('accessToken');
-          localStorage.removeItem('refreshToken')
+          localStorage.removeItem('refreshToken');
         }
       })
       .addCase(fetchUpdateUser.pending, (state) => {
@@ -282,9 +287,7 @@ export const fetchRegisterUser = createAsyncThunk(
   async (data: TRegisterData) => registerUserApi(data)
 );
 
-export const getUserThunk = createAsyncThunk('user/get', async () =>
-  getUserApi()
-);
+export const getUser = createAsyncThunk('user/get', async () => getUserApi());
 
 export const fetchFeed = createAsyncThunk('user/feed', async () =>
   getFeedsApi()
@@ -325,7 +328,7 @@ export const {
   closeOrderRequest,
   removeOrders,
   removeUserOrders,
-  init,
+  initUser,
   openModal,
   closeModal,
   deleteIngredient,

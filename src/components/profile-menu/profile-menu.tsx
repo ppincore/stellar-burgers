@@ -9,7 +9,6 @@ export const ProfileMenu: FC = () => {
   const handleLogout = () => {
     redirect('/');
     dispatch(fetchLogout());
-  
   };
 
   return <ProfileMenuUI handleLogout={handleLogout} pathname={pathname} />;
