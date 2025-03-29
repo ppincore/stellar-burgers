@@ -15,6 +15,8 @@ export const ProfileOrders: FC = () => {
   useEffect(() => {
     dispatch(fetchUserOrders());
   }, [dispatch]);
-
-  return orders! ? <Preloader /> : <ProfileOrdersUI orders={orders} />;
+  if (!orders) {
+    return <Preloader />;
+  }
+  return <ProfileOrdersUI orders={orders} />;
 };
