@@ -20,7 +20,9 @@ import {
   getUser,
   selectIngredients,
   closeModal,
-  selectOrderRequest
+  selectOrderRequest,
+  selectOrders,
+  selectOrderModalData
 } from '../../slices/burgerSlice';
 import { useEffect } from 'react';
 
@@ -28,7 +30,8 @@ const App = () => {
   const dispatch = useDispatch();
   const ingredients = useSelector(selectIngredients);
   const navigate = useNavigate();
-  const orderNumber = useSelector(selectOrderRequest);
+  const orderNumber = useSelector(selectOrderModalData);
+  console.log(orderNumber);
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
