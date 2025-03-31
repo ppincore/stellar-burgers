@@ -14,41 +14,30 @@ import ProtectedRoute from '../protected-route/protected-route';
 import '../../index.css';
 import styles from './app.module.css';
 import { useSelector, useDispatch } from '../../services/store';
-
 import { AppHeader, Modal, OrderInfo, IngredientDetails } from '@components';
 import {
-  fetchFeed,
   fetchIngredients,
   getUser,
-  initUser,
-  selectIsModalOpened,
   selectIngredients,
-  selectIsAuthenticated,
-  selectOrders,
-  closeModal
+  closeModal,
+  selectOrderRequest
 } from '../../slices/burgerSlice';
 import { useEffect } from 'react';
-import { getCookie } from '../../utils/cookie';
 
 const App = () => {
   const dispatch = useDispatch();
-  const feed = useSelector(selectOrders);
   const ingredients = useSelector(selectIngredients);
   const navigate = useNavigate();
-
+  const orderNumber = useSelector(selectOrderRequest);
   useEffect(() => {
     dispatch(getUser());
-  }, []);
+  }, [dispatch]);
 
   const handleModalClose = () => {
     dispatch(closeModal());
     navigate(-1);
   };
-  useEffect(() => {
-    if (!feed.length) {
-      dispatch(fetchFeed());
-    }
-  }, []);
+
   useEffect(() => {
     if (!ingredients.length) {
       dispatch(fetchIngredients());
@@ -138,7 +127,7 @@ const App = () => {
             <ProtectedRoute>
               <Modal
                 children={<IngredientDetails />}
-                title={'Описание ингредиента'}
+                title={'Детали ингредиента'}
                 onClose={handleModalClose}
               />
             </ProtectedRoute>
