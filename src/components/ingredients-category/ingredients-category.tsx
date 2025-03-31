@@ -9,12 +9,12 @@ export const IngredientsCategory = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryProps
 >(({ title, titleRef, ingredients }, ref) => {
-  const items = useSelector(selectConstructorItems);
+  const constructorItems = useSelector(selectConstructorItems);
   const burgerConstructor = {
     bun: {
-      _id: 'asdasd'
+      _id: constructorItems.bun._id!
     },
-    ingredients: []
+    ingredients: constructorItems.ingredients
   };
 
   const ingredientsCounters = useMemo(() => {
