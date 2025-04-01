@@ -20,6 +20,7 @@ export const BurgerConstructor: FC = () => {
   const orderModalData = useSelector(selectOrderModalData);
   const isAuth = useSelector(selectIsAuthenticated);
   const navigate = useNavigate();
+
   const onOrderClick = () => {
     if (!isAuth) {
       navigate('/login', { replace: true });
@@ -50,6 +51,7 @@ export const BurgerConstructor: FC = () => {
       ),
     [constructorItems]
   );
+
   return (
     <BurgerConstructorUI
       price={price}

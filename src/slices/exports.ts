@@ -17,13 +17,8 @@ export {
 export {
   selectOrderModalData,
   selectOrderRequest,
-  selectOrders,
-  selectUserOrders,
   selectOrderLoading,
-  removeOrders,
-  removeUserOrders,
   closeOrderRequest,
-  fetchUserOrders,
   fetchNewOrder
 } from './slices-storage/orderSlice';
 
@@ -43,6 +38,10 @@ export {
   selectCurrentDayOrders,
   selectFeedLoading,
   selectFeedOrders,
+  selectUserOrders,
+  fetchUserOrders,
+  removeOrders,
+  removeUserOrders,
   fetchFeed
 } from './slices-storage/feedSlice';
 

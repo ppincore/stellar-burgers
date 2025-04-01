@@ -21,7 +21,7 @@ import {
   selectIngredients,
   closeModal,
   selectOrderRequest,
-  selectOrders,
+  selectFeedOrders,
   selectOrderModalData
 } from '../../slices/exports';
 import { useEffect } from 'react';
