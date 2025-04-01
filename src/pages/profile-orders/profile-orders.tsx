@@ -1,6 +1,7 @@
 import { ProfileOrdersUI } from '@ui-pages';
 import { FC, useEffect } from 'react';
 import {
+  fetchFeed,
   fetchUserOrders,
   removeUserOrders,
   selectUserOrders
@@ -10,17 +11,19 @@ import { Preloader } from '@ui';
 
 export const ProfileOrders: FC = () => {
   const dispatch = useDispatch();
-  const orders = useSelector(selectUserOrders);
   useEffect(() => {
-    dispatch(removeUserOrders());
+    dispatch(fetchFeed());
     dispatch(fetchUserOrders());
-  }, [dispatch]);
-  if (!orders) {
+  }, []);
+  
+  const userOrders = useSelector(selectUserOrders);
+
+  if (!userOrders) {
     return <Preloader />;
   }
   return (
     <>
-      <ProfileOrdersUI orders={orders} />
+      <ProfileOrdersUI orders={userOrders} />
     </>
   );
 };
