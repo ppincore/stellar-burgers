@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import { useSelector } from '../../services/store';
-import { selectIsAuthenticated, selectIsInit } from '../../slices/burgerSlice';
+import { selectIsAuthenticated, selectIsInit } from '../../slices/exports';
 import { Navigate, useLocation } from 'react-router-dom';
 import { Preloader } from '@ui';
 

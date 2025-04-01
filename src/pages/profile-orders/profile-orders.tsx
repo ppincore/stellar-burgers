@@ -4,7 +4,7 @@ import {
   fetchUserOrders,
   removeUserOrders,
   selectUserOrders
-} from '../../slices/burgerSlice';
+} from '../../slices/exports';
 import { useSelector, useDispatch } from '../../services/store';
 import { Preloader } from '@ui';
 

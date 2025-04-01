@@ -17,13 +17,13 @@ import { useSelector, useDispatch } from '../../services/store';
 import { AppHeader, Modal, OrderInfo, IngredientDetails } from '@components';
 import {
   fetchIngredients,
-  getUser,
+  fetchUser,
   selectIngredients,
   closeModal,
   selectOrderRequest,
   selectOrders,
   selectOrderModalData
-} from '../../slices/index';
+} from '../../slices/exports';
 import { useEffect } from 'react';
 
 const App = () => {
@@ -31,9 +31,9 @@ const App = () => {
   const ingredients = useSelector(selectIngredients);
   const navigate = useNavigate();
   const orderNumber = useSelector(selectOrderModalData);
-  console.log(orderNumber);
+
   useEffect(() => {
-    dispatch(getUser());
+    dispatch(fetchUser());
   }, [dispatch]);
 
   const handleModalClose = () => {

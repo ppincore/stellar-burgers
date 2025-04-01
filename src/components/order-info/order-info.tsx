@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
-import { selectIngredients, selectOrders } from '../../slices/burgerSlice';
+import { selectIngredients, selectOrders } from '../../slices/exports';
 import { useSelector } from '../../services/store';
 import { useParams } from 'react-router-dom';
 export const OrderInfo: FC = () => {

@@ -3,7 +3,7 @@ import { TIngredientsCategoryProps } from './type';
 import { TIngredient } from '@utils-types';
 import { IngredientsCategoryUI } from '../ui/ingredients-category';
 import { useSelector } from '../../services/store';
-import { selectConstructorItems } from '../../slices/burgerSlice';
+import { selectConstructorItems } from '../../slices/exports';
 
 export const IngredientsCategory = forwardRef<
   HTMLUListElement,
