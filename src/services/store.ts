@@ -1,18 +1,27 @@
-import { configureStore } from '@reduxjs/toolkit';
-import stellarBurgerSlice from '../slices/burgerSlice';
-
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import userSlice from '../slices/slices-storage/userSlice';
+import orderSlice from '../slices/slices-storage/orderSlice';
+import modalSlice from '../slices/slices-storage/modalSlice';
+import ingredientsSlice from '../slices/slices-storage/ingredientsSlice';
+import feedSlice from '../slices/slices-storage/feedSlice';
+import constructorSlice from '../slices/slices-storage/constructorSlice';
 import {
   TypedUseSelectorHook,
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
 
-const rootReducer = stellarBurgerSlice;
+const rootReducer = combineReducers({
+  constructorSlice: constructorSlice,
+  feedSlice: feedSlice,
+  ingredientsSlice: ingredientsSlice,
+  modalSlice: modalSlice,
+  orderSlice: orderSlice,
+  userSlcie: userSlice
+});
 
 const store = configureStore({
-  reducer: {
-    stellarBurger: rootReducer
-  },
+  reducer: rootReducer,
   devTools: process.env.NODE_ENV !== 'production'
 });
 
