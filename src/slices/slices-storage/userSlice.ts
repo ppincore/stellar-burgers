@@ -9,7 +9,7 @@ import {
   getUserApi,
   logoutApi
 } from '@api';
-import { setCookie, deleteCookie } from 'src/utils/cookie';
+import { setCookie, deleteCookie } from '../../utils/cookie';
 
 export type TUserInitialState = {
   isLoading: boolean;
@@ -45,19 +45,20 @@ const userSlice = createSlice({
     selectUserInfo: (state) => state.userInfo,
     selectIsAuthenticated: (state) => state.isAuth,
     selectIsInit: (state) => state.isInit,
-    selectLoading: (state) => state.isLoading
+    selectUserLoading: (state) => state.isLoading,
+    selectErrorText: (state) => state.error
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getUser.pending, (state) => {
+      .addCase(fetchUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getUser.rejected, (state, action) => {
+      .addCase(fetchUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isAuth = false;
         state.userInfo = { name: '', email: '' };
       })
-      .addCase(getUser.fulfilled, (state, action) => {
+      .addCase(fetchUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userInfo.name = action.payload.user.name;
         state.userInfo.email = action.payload.user.email;
@@ -131,7 +132,7 @@ export const fetchRegisterUser = createAsyncThunk(
   }
 );
 
-export const getUser = createAsyncThunk('user/get', async () => getUserApi());
+export const fetchUser = createAsyncThunk('user/get', async () => getUserApi());
 
 export const fetchUpdateUser = createAsyncThunk(
   'user/update',
@@ -148,7 +149,8 @@ export const {
   selectUserInfo,
   selectIsAuthenticated,
   selectIsInit,
-  selectLoading
+  selectUserLoading,
+  selectErrorText
 } = userSlice.selectors;
 
 export const { initUser, setErrorText, removeErrorText } = userSlice.actions;

@@ -19,12 +19,14 @@ const initialState: TFeedInitialState = {
 };
 
 const feedSlice = createSlice({
-  name: 'orderSlice',
+  name: 'feedSlice',
   initialState,
   reducers: {},
   selectors: {
     selectTotalOrders: (state) => state.totalOrders,
-    selectCurrentDayOrders: (state) => state.currentDayOrders
+    selectCurrentDayOrders: (state) => state.currentDayOrders,
+    selectFeedLoading: (state) => state.isLoading,
+    selectFeedOrders: (state) => state.orders
   },
   extraReducers: (builder) => {
     builder
@@ -46,5 +48,11 @@ const feedSlice = createSlice({
 export const fetchFeed = createAsyncThunk('user/feed', async () =>
   getFeedsApi()
 );
+export const {
+  selectTotalOrders,
+  selectCurrentDayOrders,
+  selectFeedLoading,
+  selectFeedOrders
+} = feedSlice.selectors;
 
 export default feedSlice.reducer;

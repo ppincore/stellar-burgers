@@ -39,7 +39,7 @@ const orderSlice = createSlice({
     selectOrderRequest: (state) => state.orderRequest,
     selectOrders: (state) => state.orders,
     selectUserOrders: (state) => state.userOrders,
-
+    selectOrderLoading: (state) => state.isLoading
   },
   extraReducers: (builder) => {}
 });
@@ -58,6 +58,7 @@ export const {
   selectOrderRequest,
   selectOrders,
   selectUserOrders,
+  selectOrderLoading
 } = orderSlice.selectors;
 
 export const { removeOrders, removeUserOrders, closeOrderRequest } =

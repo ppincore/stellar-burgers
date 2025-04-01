@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   ingredientsSlice: ingredientsSlice,
   modalSlice: modalSlice,
   orderSlice: orderSlice,
-  userSlcie: userSlice
+  userSlice: userSlice
 });
 
 const store = configureStore({

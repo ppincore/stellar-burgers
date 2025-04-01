@@ -15,7 +15,7 @@ const initialState: TConstructorInitialState = {
 };
 
 const constructorSlice = createSlice({
-  name: 'orderSlice',
+  name: 'constructorSlice',
   initialState,
   reducers: {
     addIngredient(state, action: PayloadAction<TIngredient>) {
@@ -68,5 +68,10 @@ const constructorSlice = createSlice({
 });
 
 export const { selectConstructorItems } = constructorSlice.selectors;
-
+export const {
+  moveIngredientDown,
+  moveIngredientUp,
+  deleteIngredient,
+  addIngredient
+} = constructorSlice.actions;
 export default constructorSlice.reducer;
