@@ -23,7 +23,7 @@ import {
   selectOrderRequest,
   selectOrders,
   selectOrderModalData
-} from '../../slices/burgerSlice';
+} from '../../slices/index';
 import { useEffect } from 'react';
 
 const App = () => {
