@@ -2,13 +2,14 @@ export {
   selectUserInfo,
   selectIsAuthenticated,
   selectIsInit,
-  selectLoading,
-  initUser,
+  selectUserLoading,
   setErrorText,
+  selectErrorText,
+  initUser,
   removeErrorText,
   fetchLoginUser,
   fetchRegisterUser,
-  getUser,
+  fetchUser,
   fetchUpdateUser,
   fetchLogout
 } from './slices-storage/userSlice';
@@ -18,11 +19,12 @@ export {
   selectOrderRequest,
   selectOrders,
   selectUserOrders,
-  fetchUserOrders,
-  fetchNewOrder,
+  selectOrderLoading,
   removeOrders,
   removeUserOrders,
-  closeOrderRequest
+  closeOrderRequest,
+  fetchUserOrders,
+  fetchNewOrder
 } from './slices-storage/orderSlice';
 
 export {
@@ -33,6 +35,21 @@ export {
 
 export {
   selectIngredients,
+  selectIngredientsLoading,
   fetchIngredients
 } from './slices-storage/ingredientsSlice';
-export { selectConstructorItems } from './slices-storage/constructorSlice';
+export {
+  selectTotalOrders,
+  selectCurrentDayOrders,
+  selectFeedLoading,
+  selectFeedOrders,
+  fetchFeed
+} from './slices-storage/feedSlice';
+
+export {
+  selectConstructorItems,
+  moveIngredientDown,
+  moveIngredientUp,
+  addIngredient,
+  deleteIngredient
+} from './slices-storage/constructorSlice';
