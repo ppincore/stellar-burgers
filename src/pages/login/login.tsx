@@ -3,15 +3,17 @@ import { LoginUI } from '@ui-pages';
 import {
   selectErrorText,
   fetchLoginUser,
-  removeErrorText
+  removeErrorText,
+  selectUserLoading
 } from '../../slices/exports';
 import { useSelector, useDispatch } from '../../services/store';
+import { Preloader } from '@ui';
 export const Login: FC = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const errorText = useSelector(selectErrorText);
-
+  const isLoading = useSelector(selectUserLoading);
   useEffect(() => {
     dispatch(removeErrorText());
   }, []);
@@ -21,6 +23,10 @@ export const Login: FC = () => {
     dispatch(fetchLoginUser({ email, password }));
     dispatch(removeErrorText());
   };
+
+  if (isLoading) {
+    return <Preloader />;
+  }
 
   return (
     <LoginUI

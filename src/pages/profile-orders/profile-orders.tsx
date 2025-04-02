@@ -3,7 +3,8 @@ import { FC, useEffect } from 'react';
 import {
   fetchFeed,
   fetchUserOrders,
-  selectUserOrders
+  selectUserOrders,
+  selectFeedLoading
 } from '../../slices/exports';
 import { useSelector, useDispatch } from '../../services/store';
 import { Preloader } from '@ui';
@@ -16,8 +17,8 @@ export const ProfileOrders: FC = () => {
   }, []);
 
   const userOrders = useSelector(selectUserOrders);
-
-  if (!userOrders) {
+  const isLoading = useSelector(selectFeedLoading);
+  if (isLoading || !userOrders) {
     return <Preloader />;
   }
   return (
