@@ -31,7 +31,7 @@ const App = () => {
   const location = useLocation();
   const ingredients = useSelector(selectIngredients);
   const navigate = useNavigate();
-  const orderNumber = useSelector(selectOrderModalData);
+  const orderNumber = useSelector(selectOrderModalData)?.number;
   const backgroundPage = location.state?.background;
 
   useEffect(() => {
@@ -105,7 +105,14 @@ const App = () => {
           }
         />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
-        <Route path='/profile/orders/:number' element={<OrderInfo />} />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
         <Route path='/feed/:number' element={<OrderInfo />} />
       </Routes>
       {backgroundPage && (
@@ -116,7 +123,7 @@ const App = () => {
               <ProtectedRoute>
                 <Modal
                   children={<OrderInfo />}
-                  title={'Заказ'}
+                  title={`#${orderNumber}`}
                   onClose={handleModalClose}
                 />
               </ProtectedRoute>
@@ -127,7 +134,7 @@ const App = () => {
             element={
               <Modal
                 children={<OrderInfo />}
-                title={'Заказ'}
+                title={`#${orderNumber}`}
                 onClose={handleModalClose}
               />
             }
