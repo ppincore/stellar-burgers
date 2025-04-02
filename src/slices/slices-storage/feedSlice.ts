@@ -65,13 +65,17 @@ const feedSlice = createSlice({
   }
 });
 
-export const fetchUserOrders = createAsyncThunk('user/orders', async () =>
-  getOrdersApi()
-);
+export const fetchUserOrders = createAsyncThunk('user/orders', async () => {
+  const res = await getOrdersApi();
+  console.log(res);
+  return res;
+});
 
-export const fetchFeed = createAsyncThunk('user/feed', async () =>
-  getFeedsApi()
-);
+export const fetchFeed = createAsyncThunk('user/feed', async () => {
+  console.log('fetch');
+  const res = await getFeedsApi();
+  return res;
+});
 
 export const {
   selectTotalOrders,

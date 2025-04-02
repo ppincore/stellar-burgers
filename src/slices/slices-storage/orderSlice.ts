@@ -46,7 +46,10 @@ const orderSlice = createSlice({
 
 export const fetchNewOrder = createAsyncThunk(
   'orders/newOrder',
-  async (data: string[]) => orderBurgerApi(data)
+  async (data: string[]) => {
+    const res = await orderBurgerApi(data);
+    return res;
+  }
 );
 
 export const { selectOrderModalData, selectOrderRequest, selectOrderLoading } =

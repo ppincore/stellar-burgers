@@ -57,12 +57,14 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.isAuth = false;
         state.userInfo = { name: '', email: '' };
+        deleteCookie('accessToken');
+        localStorage.removeItem('refreshToken');
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userInfo.name = action.payload.user.name;
-        state.userInfo.email = action.payload.user.email;
         state.isAuth = true;
+        state.userInfo.name = action.payload.name;
+        state.userInfo.email = action.payload.email;
       })
       .addCase(fetchLoginUser.pending, (state) => {
         state.isLoading = true;
@@ -135,7 +137,10 @@ export const fetchRegisterUser = createAsyncThunk(
   }
 );
 
-export const fetchUser = createAsyncThunk('user/get', async () => getUserApi());
+export const fetchUser = createAsyncThunk('user/get', async () => {
+  const res = await getUserApi();
+  return res.user;
+});
 
 export const fetchUpdateUser = createAsyncThunk(
   'user/update',
@@ -146,9 +151,10 @@ export const fetchUpdateUser = createAsyncThunk(
 );
 
 export const fetchLogout = createAsyncThunk('user/logout', async () => {
-  logoutApi();
+  const res = await logoutApi();
   deleteCookie('accessToken');
   localStorage.removeItem('refreshToken');
+  return res.success;
 });
 
 export const {
