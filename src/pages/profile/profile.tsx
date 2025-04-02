@@ -6,8 +6,6 @@ import { useSelector, useDispatch } from '../../services/store';
 export const Profile: FC = () => {
   const user = useSelector(selectUserInfo);
   const dispatch = useDispatch();
-  /** TODO: взять переменную из стора */
-
   const [formValue, setFormValue] = useState({
     name: user.name,
     email: user.email,

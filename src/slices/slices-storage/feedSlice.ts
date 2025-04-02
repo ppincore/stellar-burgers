@@ -61,7 +61,6 @@ const feedSlice = createSlice({
       .addCase(fetchUserOrders.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userOrders = action.payload;
-        console.log(state.userOrders);
       });
   }
 });

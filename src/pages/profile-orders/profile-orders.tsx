@@ -3,7 +3,6 @@ import { FC, useEffect } from 'react';
 import {
   fetchFeed,
   fetchUserOrders,
-  removeUserOrders,
   selectUserOrders
 } from '../../slices/exports';
 import { useSelector, useDispatch } from '../../services/store';
@@ -15,7 +14,7 @@ export const ProfileOrders: FC = () => {
     dispatch(fetchFeed());
     dispatch(fetchUserOrders());
   }, []);
-  
+
   const userOrders = useSelector(selectUserOrders);
 
   if (!userOrders) {
