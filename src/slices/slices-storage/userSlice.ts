@@ -70,6 +70,8 @@ const userSlice = createSlice({
       .addCase(fetchLoginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isAuth = true;
+        state.userInfo.name = action.payload.name;
+        state.userInfo.email = action.payload.email;
       })
       .addCase(fetchLoginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -85,6 +87,8 @@ const userSlice = createSlice({
       .addCase(fetchRegisterUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isAuth = true;
+        state.userInfo.name = action.payload.name;
+        state.userInfo.email = action.payload.email;
       })
       .addCase(fetchUpdateUser.pending, (state) => {
         state.isLoading = true;
@@ -94,8 +98,8 @@ const userSlice = createSlice({
       })
       .addCase(fetchUpdateUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.userInfo.name = action.payload.user.name;
-        state.userInfo.email = action.payload.user.email;
+        state.userInfo.name = action.payload.name;
+        state.userInfo.email = action.payload.email;
       })
       .addCase(fetchLogout.pending, (state) => {
         state.isLoading = true;
@@ -105,7 +109,6 @@ const userSlice = createSlice({
       })
       .addCase(fetchLogout.fulfilled, (state, action) => {
         state.isLoading = false;
-
         state.userInfo = { name: '', email: '' };
         state.isAuth = false;
       });
@@ -115,20 +118,20 @@ const userSlice = createSlice({
 export const fetchLoginUser = createAsyncThunk(
   'user/login',
   async (data: TLoginData) => {
-    loginUserApi(data).then((res) => {
-      setCookie('accessToken', res.accessToken);
-      localStorage.setItem('refreshToken', res.refreshToken);
-    });
+    const res = await loginUserApi(data);
+    setCookie('accessToken', res.accessToken);
+    localStorage.setItem('refreshToken', res.refreshToken);
+    return res.user;
   }
 );
 
 export const fetchRegisterUser = createAsyncThunk(
   'user/register',
   async (data: TRegisterData) => {
-    registerUserApi(data).then((res) => {
-      setCookie('accessToken', res.accessToken);
-      localStorage.setItem('refreshToken', res.refreshToken);
-    });
+    const res = await registerUserApi(data);
+    setCookie('accessToken', res.accessToken);
+    localStorage.setItem('refreshToken', res.refreshToken);
+    return res.user;
   }
 );
 
@@ -136,7 +139,10 @@ export const fetchUser = createAsyncThunk('user/get', async () => getUserApi());
 
 export const fetchUpdateUser = createAsyncThunk(
   'user/update',
-  async (user: Partial<TRegisterData>) => updateUserApi(user)
+  async (user: Partial<TRegisterData>) => {
+    const res = await updateUserApi(user);
+    return res.user;
+  }
 );
 
 export const fetchLogout = createAsyncThunk('user/logout', async () => {
