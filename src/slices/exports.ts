@@ -18,7 +18,7 @@ export {
   selectOrderModalData,
   selectOrderRequest,
   selectOrderLoading,
-  closeOrderRequest,
+  clearOrderModalData,
   selectUserOrders,
   fetchUserOrders,
   fetchOrderByNumber,

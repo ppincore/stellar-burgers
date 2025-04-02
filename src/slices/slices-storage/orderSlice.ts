@@ -22,7 +22,7 @@ const orderSlice = createSlice({
   name: 'orderSlice',
   initialState,
   reducers: {
-    closeOrderRequest(state) {
+    clearOrderModalData(state) {
       state.orderModalData = null;
     }
   },
@@ -97,6 +97,6 @@ export const {
   selectUserOrders
 } = orderSlice.selectors;
 
-export const { closeOrderRequest } = orderSlice.actions;
+export const { clearOrderModalData } = orderSlice.actions;
 
 export default orderSlice.reducer;

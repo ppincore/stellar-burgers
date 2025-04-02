@@ -20,9 +20,8 @@ import {
   fetchUser,
   selectIngredients,
   closeModal,
-  selectOrderRequest,
-  selectFeedOrders,
-  selectOrderModalData
+  selectOrderModalData,
+  clearOrderModalData
 } from '../../slices/exports';
 import { useEffect } from 'react';
 
@@ -32,6 +31,11 @@ const App = () => {
   const ingredients = useSelector(selectIngredients);
   const navigate = useNavigate();
   const orderNumber = useSelector(selectOrderModalData)?.number;
+  const orderNum = () => {
+    if (orderNumber) {
+      return '#' + orderNumber;
+    } else return ' ';
+  };
   const backgroundPage = location.state?.background;
 
   useEffect(() => {
@@ -39,6 +43,7 @@ const App = () => {
   }, [dispatch]);
 
   const handleModalClose = () => {
+    dispatch(clearOrderModalData());
     dispatch(closeModal());
     navigate(-1);
   };
@@ -123,7 +128,7 @@ const App = () => {
               <ProtectedRoute>
                 <Modal
                   children={<OrderInfo />}
-                  title={`#${orderNumber}`}
+                  title={orderNum()}
                   onClose={handleModalClose}
                 />
               </ProtectedRoute>
@@ -134,7 +139,7 @@ const App = () => {
             element={
               <Modal
                 children={<OrderInfo />}
-                title={`#${orderNumber}`}
+                title={orderNum()}
                 onClose={handleModalClose}
               />
             }

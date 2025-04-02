@@ -6,7 +6,8 @@ import {
   selectIngredients,
   selectFeedOrders,
   selectOrderModalData,
-  fetchOrderByNumber
+  fetchOrderByNumber,
+  clearOrderModalData
 } from '../../slices/exports';
 import { useSelector, useDispatch } from '../../services/store';
 import { useParams } from 'react-router-dom';
@@ -20,6 +21,9 @@ export const OrderInfo: FC = () => {
 
   useEffect(() => {
     dispatch(fetchOrderByNumber(params));
+    return () => {
+      dispatch(clearOrderModalData());
+    };
   }, []);
 
   const orderInfo = useMemo(() => {

@@ -7,7 +7,7 @@ import {
   selectOrderModalData,
   selectIsAuthenticated,
   fetchNewOrder,
-  closeOrderRequest
+  clearOrderModalData
 } from '../../slices/exports';
 import { useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
@@ -39,7 +39,7 @@ export const BurgerConstructor: FC = () => {
   };
 
   const closeOrderModal = () => {
-    dispatch(closeOrderRequest());
+    dispatch(clearOrderModalData());
   };
 
   const price = useMemo(
