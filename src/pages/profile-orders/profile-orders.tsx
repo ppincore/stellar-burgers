@@ -12,7 +12,6 @@ import { Preloader } from '@ui';
 export const ProfileOrders: FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchFeed());
     dispatch(fetchUserOrders());
   }, []);
 

@@ -16,12 +16,9 @@ const ProtectedRoute: React.FC<TProtectedRouteProps> = ({
   const path = useLocation().state?.from || '/';
   const isAuth = useSelector(selectIsAuthenticated);
   const isInit = useSelector(selectIsInit);
-  const check = unAuth && isAuth
-  // console.log(isAuth)
   if (isInit) return <Preloader />;
   if (!unAuth && !isAuth) return <Navigate replace to='/login' />;
   if (unAuth) return <Navigate replace to={path} />;
-  console.log(!!check);
   return children;
 };
 

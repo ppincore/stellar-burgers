@@ -35,8 +35,7 @@ const feedSlice = createSlice({
     selectTotalOrders: (state) => state.totalOrders,
     selectCurrentDayOrders: (state) => state.currentDayOrders,
     selectFeedLoading: (state) => state.isLoading,
-    selectFeedOrders: (state) => state.orders,
-    selectUserOrders: (state) => state.userOrders
+    selectFeedOrders: (state) => state.orders
   },
   extraReducers: (builder) => {
     builder
@@ -51,28 +50,11 @@ const feedSlice = createSlice({
         state.orders = action.payload.orders;
         state.totalOrders = action.payload.total;
         state.currentDayOrders = action.payload.totalToday;
-      })
-      .addCase(fetchUserOrders.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(fetchUserOrders.rejected, (state) => {
-        state.isLoading = false;
-      })
-      .addCase(fetchUserOrders.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.userOrders = action.payload;
       });
   }
 });
 
-export const fetchUserOrders = createAsyncThunk('user/orders', async () => {
-  const res = await getOrdersApi();
-  console.log(res);
-  return res;
-});
-
 export const fetchFeed = createAsyncThunk('user/feed', async () => {
-  console.log('fetch');
   const res = await getFeedsApi();
   return res;
 });
@@ -81,7 +63,6 @@ export const {
   selectTotalOrders,
   selectCurrentDayOrders,
   selectFeedLoading,
-  selectUserOrders,
   selectFeedOrders
 } = feedSlice.selectors;
 

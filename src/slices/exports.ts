@@ -19,6 +19,9 @@ export {
   selectOrderRequest,
   selectOrderLoading,
   closeOrderRequest,
+  selectUserOrders,
+  fetchUserOrders,
+  fetchOrderByNumber,
   fetchNewOrder
 } from './slices-storage/orderSlice';
 
@@ -38,8 +41,6 @@ export {
   selectCurrentDayOrders,
   selectFeedLoading,
   selectFeedOrders,
-  selectUserOrders,
-  fetchUserOrders,
   removeOrders,
   removeUserOrders,
   fetchFeed
