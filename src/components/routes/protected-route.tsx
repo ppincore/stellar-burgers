@@ -1,25 +1,27 @@
-import React, { ReactElement } from 'react';
-import { useSelector } from '../../services/store';
-import { selectIsAuthenticated, selectIsInit } from '../../slices/exports';
+import { ReactElement } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { Preloader } from '@ui';
+import { selectIsAuthenticated, selectIsInit } from '../../slices/exports';
+import { Preloader } from '../ui/preloader';
+import { useSelector } from '../../services/store';
 
-type TProtectedRouteProps = {
+type ProtectedRouteProps = {
   children: ReactElement;
   unAuth?: boolean;
 };
 
-const ProtectedRoute: React.FC<TProtectedRouteProps> = ({
-  children,
-  unAuth
-}) => {
-  const path = useLocation().state?.from || '/';
+export const ProtectedRoute = ({ children, unAuth }: ProtectedRouteProps) => {
   const isAuth = useSelector(selectIsAuthenticated);
   const isInit = useSelector(selectIsInit);
+  const location = useLocation();
   if (isInit) return <Preloader />;
-  if (!unAuth && !isAuth) return <Navigate replace to='/login' />;
-  if (unAuth) return <Navigate replace to={path} />;
+
+  if (!unAuth && !isAuth) {
+    return <Navigate replace to='/login' state={{ from: location }} />;
+  }
+  if (unAuth && isAuth) {
+    const from = location.state?.from || { pathname: '/' };
+    return <Navigate replace to={from} />;
+  }
   return children;
 };
-
 export default ProtectedRoute;
