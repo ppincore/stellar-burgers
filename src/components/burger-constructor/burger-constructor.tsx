@@ -7,7 +7,8 @@ import {
   selectOrderModalData,
   selectIsAuthenticated,
   fetchNewOrder,
-  clearOrderModalData
+  clearOrderModalData,
+  resetConsructor
 } from '../../slices/exports';
 import { useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
@@ -21,20 +22,21 @@ export const BurgerConstructor: FC = () => {
   const isAuth = useSelector(selectIsAuthenticated);
   const navigate = useNavigate();
 
-  const onOrderClick = () => {
+  const onOrderClick = async () => {
     if (!isAuth) {
       navigate('/login', { replace: true });
     } else if (constructorItems.bun._id && constructorItems.ingredients) {
       const ingredients = constructorItems.ingredients.map(
         (ingredient) => ingredient._id
       );
-      dispatch(
+      await dispatch(
         fetchNewOrder([
           constructorItems.bun._id,
           ...ingredients,
           constructorItems.bun._id
         ])
       );
+      dispatch(resetConsructor());
     }
   };
 
