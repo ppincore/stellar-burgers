@@ -1,7 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userSlice from '../slices/slices-storage/userSlice';
 import orderSlice from '../slices/slices-storage/orderSlice';
-import modalSlice from '../slices/slices-storage/modalSlice';
 import ingredientsSlice from '../slices/slices-storage/ingredientsSlice';
 import feedSlice from '../slices/slices-storage/feedSlice';
 import constructorSlice from '../slices/slices-storage/constructorSlice';
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
   constructorSlice: constructorSlice,
   feedSlice: feedSlice,
   ingredientsSlice: ingredientsSlice,
-  modalSlice: modalSlice,
   orderSlice: orderSlice,
   userSlice: userSlice
 });
