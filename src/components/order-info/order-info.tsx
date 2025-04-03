@@ -10,7 +10,8 @@ import {
   clearOrderModalData
 } from '../../slices/exports';
 import { useSelector, useDispatch } from '../../services/store';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+
 
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
@@ -18,6 +19,7 @@ export const OrderInfo: FC = () => {
   const orderData = useSelector(selectOrderModalData);
   const ingredients: TIngredient[] = useSelector(selectIngredients);
   const dispatch = useDispatch();
+  const isModalOpen = !!useLocation().state?.background;
 
   useEffect(() => {
     dispatch(fetchOrderByNumber(params));
@@ -69,5 +71,5 @@ export const OrderInfo: FC = () => {
     return <Preloader />;
   }
 
-  return <OrderInfoUI orderInfo={orderInfo} />;
+  return <OrderInfoUI orderInfo={orderInfo} isModalOpen={isModalOpen} />;
 };

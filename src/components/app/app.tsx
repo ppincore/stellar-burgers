@@ -19,7 +19,6 @@ import {
   fetchIngredients,
   fetchUser,
   selectIngredients,
-  closeModal,
   selectOrderModalData,
   clearOrderModalData
 } from '../../slices/exports';
@@ -44,7 +43,7 @@ const App = () => {
 
   const handleModalClose = () => {
     dispatch(clearOrderModalData());
-    dispatch(closeModal());
+    // dispatch(closeModal());
     navigate(-1);
   };
 

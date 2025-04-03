@@ -3,10 +3,12 @@ import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
 import { useSelector } from '../../services/store';
 import { selectIngredients } from '../../slices/exports';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+
 export const IngredientDetails: FC = () => {
   const ingredientsActive = useParams();
   const ingredients = useSelector(selectIngredients);
+  const isModalOpen = !!useLocation().state?.background;
   const ingredientData = ingredients.find(
     (ingredient) => ingredient._id === ingredientsActive.id
   );
@@ -14,5 +16,10 @@ export const IngredientDetails: FC = () => {
     return <Preloader />;
   }
 
-  return <IngredientDetailsUI ingredientData={ingredientData} />;
+  return (
+    <IngredientDetailsUI
+      ingredientData={ingredientData}
+      isModalOpen={isModalOpen}
+    />
+  );
 };
