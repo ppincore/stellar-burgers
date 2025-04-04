@@ -1,5 +1,6 @@
 export type TIngredient = {
   _id: string;
+  id?: string;
   name: string;
   type: string;
   proteins: number;
@@ -10,6 +11,11 @@ export type TIngredient = {
   image: string;
   image_large: string;
   image_mobile: string;
+};
+
+export type TConstructorItems = {
+  bun: Partial<TIngredient>;
+  ingredients: TIngredient[];
 };
 
 export type TConstructorIngredient = TIngredient & {

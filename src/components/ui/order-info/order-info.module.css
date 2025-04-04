@@ -1,9 +1,16 @@
 .wrap {
+  margin: 120px auto;
+  width: 640px;
+}
+
+.modalWrap {
   margin: 0 auto;
   width: 640px;
 }
+
 .number {
   text-align: center;
+  /* margin: 0 auto; */
 }
 
 .status {
