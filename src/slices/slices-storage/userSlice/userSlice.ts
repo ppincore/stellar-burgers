@@ -9,7 +9,7 @@ import {
   getUserApi,
   logoutApi
 } from '@api';
-import { setCookie, deleteCookie } from '../../utils/cookie';
+import { setCookie, deleteCookie } from '../../../utils/cookie';
 
 export type TUserInitialState = {
   isLoading: boolean;

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-import { getFeedsApi, getOrdersApi } from '@api';
+import { getFeedsApi } from '../../../utils/burger-api';
 
 export type TFeedInitialState = {
   isLoading: boolean;
@@ -11,7 +11,7 @@ export type TFeedInitialState = {
   error: string;
 };
 
-const initialState: TFeedInitialState = {
+export const initialState: TFeedInitialState = {
   isLoading: false,
   orders: [],
   userOrders: [],
@@ -42,8 +42,9 @@ const feedSlice = createSlice({
       .addCase(fetchFeed.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchFeed.rejected, (state) => {
+      .addCase(fetchFeed.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.error.message!;
       })
       .addCase(fetchFeed.fulfilled, (state, action) => {
         state.isLoading = false;
