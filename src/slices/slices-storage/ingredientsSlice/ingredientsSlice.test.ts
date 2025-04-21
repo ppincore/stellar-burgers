@@ -34,8 +34,6 @@ describe('[ingredientSlice], тестирование слайса', () => {
     }
   ];
 
-  test('Тестирование очистки заказов', () => {});
-  test('Тестирование очистки заказов пользователя', () => {});
   test('Тестирование pending запроса', () => {
     const state = ingredientSlice(initialState, fetchIngredients.pending(''));
     expect(state).toEqual({

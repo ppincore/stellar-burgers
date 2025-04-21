@@ -8,7 +8,7 @@ import {
   updateUserApi,
   getUserApi,
   logoutApi
-} from '@api';
+} from '../../../utils/burger-api';
 import { setCookie, deleteCookie } from '../../../utils/cookie';
 
 export type TUserInitialState = {
