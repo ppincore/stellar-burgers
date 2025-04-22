@@ -23,20 +23,117 @@ describe('[ingredientSlice], тестирование слайса', () => {
 
   describe('[fetchOrderByNumber], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchOrderByNumber', () => {
-      const state = orderSlice(initialState, fetchOrderByNumber.pending('',1))
+      const state = orderSlice(initialState, fetchOrderByNumber.pending('', 1));
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: true
+      });
     });
-    test('Тестирование rejected для запроса fetchOrderByNumber', () => {});
-    test('Тестирование fulfilled для запроса fetchOrderByNumber', () => {});
+    test('Тестирование rejected для запроса fetchOrderByNumber', () => {
+      const action = {
+        type: fetchOrderByNumber.rejected.type,
+        error: { message: 'Error' }
+      };
+      const state = orderSlice(initialState, action);
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        error: 'Error'
+      });
+    });
+    test('Тестирование fulfilled для запроса fetchOrderByNumber', () => {
+      const payload = {
+        type: fetchOrderByNumber.fulfilled.type,
+        success: true,
+        order: mockOrder
+      };
+      const state = orderSlice(
+        initialState,
+        fetchOrderByNumber.fulfilled(payload.order, '', 1)
+      );
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        orderRequest: false,
+        orderModalData: mockOrder
+      });
+    });
   });
   describe('[fetchUserOrders], тестирование запроса', () => {
-    test('Тестирование pending для запроса fetchUserOrders', () => {});
-    test('Тестирование rejected для запроса fetchUserOrders', () => {});
-    test('Тестирование fulfilled для запроса fetchUserOrders', () => {});
+    test('Тестирование pending для запроса fetchUserOrders', () => {
+      const state = orderSlice(initialState, fetchUserOrders.pending(''));
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: true
+      });
+    });
+    test('Тестирование rejected для запроса fetchUserOrders', () => {
+      const action = {
+        type: fetchUserOrders.rejected.type,
+        error: { message: 'Error' }
+      };
+      const state = orderSlice(initialState, action);
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        error: 'Error'
+      });
+    });
+    test('Тестирование fulfilled для запроса fetchUserOrders', () => {
+      const payload = {
+        type: fetchUserOrders.fulfilled.type,
+        success: true,
+        orders: [mockOrder]
+      };
+      const state = orderSlice(
+        initialState,
+        fetchUserOrders.fulfilled(payload.orders, '')
+      );
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        userOrders: [mockOrder]
+      });
+    });
   });
   describe('[fetchNewOrder], тестирование запроса', () => {
-    test('Тестирование pending для запроса fetchNewOrder', () => {});
-    test('Тестирование rejected для запроса fetchNewOrder', () => {});
-    test('Тестирование fulfilled для запроса fetchNewOrder', () => {});
+    test('Тестирование pending для запроса fetchNewOrder', () => {
+      const state = orderSlice(initialState, fetchNewOrder.pending('', []));
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: true,
+        orderRequest: true
+      });
+    });
+    test('Тестирование rejected для запроса fetchNewOrder', () => {
+      const action = {
+        type: fetchNewOrder.rejected.type,
+        error: { message: 'Error' }
+      };
+      const state = orderSlice(initialState, action);
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        error: 'Error'
+      });
+    });
+    test('Тестирование fulfilled для запроса fetchNewOrder', () => {
+      const payload = {
+        success: true,
+        name: 'Заказ принят',
+        order: mockOrder
+      };
+      const state = orderSlice(
+        initialState,
+        fetchNewOrder.fulfilled(payload, '', [''])
+      );
+      expect(state).toEqual({
+        ...initialState,
+        isLoading: false,
+        orderRequest: false,
+        orderModalData: mockOrder
+      });
+    });
   });
   test('Тестирование очистки данных для модального окна', () => {
     const mockInitialState: TOrderInitialState = {

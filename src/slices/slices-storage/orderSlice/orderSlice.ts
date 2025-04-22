@@ -40,9 +40,11 @@ const orderSlice = createSlice({
     builder
       .addCase(fetchNewOrder.pending, (state) => {
         state.orderRequest = true;
+        state.isLoading = true;
       })
       .addCase(fetchNewOrder.rejected, (state, action) => {
         state.orderRequest = false;
+        state.error = action.error.message as string;
       })
       .addCase(fetchNewOrder.fulfilled, (state, action) => {
         state.orderModalData = action.payload.order;
@@ -51,8 +53,9 @@ const orderSlice = createSlice({
       .addCase(fetchUserOrders.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchUserOrders.rejected, (state) => {
+      .addCase(fetchUserOrders.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.error.message as string;
       })
       .addCase(fetchUserOrders.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -68,7 +71,7 @@ const orderSlice = createSlice({
       })
       .addCase(fetchOrderByNumber.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = action.error.message as string;
       });
   }
 });
