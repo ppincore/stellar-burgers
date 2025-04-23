@@ -8,7 +8,7 @@ import {
   initUser,
   setErrorText,
   removeErrorText,
-  initialState
+  userSliceInitialState
 } from './userSlice';
 
 import userSlice from './userSlice';
@@ -23,26 +23,26 @@ describe('[userSlice], тестирование слайса', () => {
   describe('[fetchLogout], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchLogout', () => {
       const action = { type: fetchLogout.pending.type };
-      const state = userSlice(initialState, action);
-      expect(state).toEqual({ ...initialState, isLoading: true });
+      const state = userSlice(userSliceInitialState, action);
+      expect(state).toEqual({ ...userSliceInitialState, isLoading: true });
     });
     test('Тестирование rejected для запроса fetchLogout', () => {
       const action = {
         type: fetchLogout.rejected.type,
         error: { message: 'Error' }
       };
-      const state = userSlice(initialState, action);
+      const state = userSlice(userSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...userSliceInitialState,
         isLoading: false,
         error: 'Error'
       });
     });
     test('Тестирование fulfilled для запроса fetchLogout', () => {
       const action = { type: fetchLogout.fulfilled.type };
-      const state = userSlice(initialState, action);
+      const state = userSlice(userSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...userSliceInitialState,
         userInfo: { name: '', email: '' },
         isLoading: false,
         isAuth: false
@@ -52,17 +52,17 @@ describe('[userSlice], тестирование слайса', () => {
   describe('[fetchUpdateUser], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchUpdateUser', () => {
       const action = { type: fetchUpdateUser.pending.type };
-      const state = userSlice(initialState, action);
-      expect(state).toEqual({ ...initialState, isLoading: true });
+      const state = userSlice(userSliceInitialState, action);
+      expect(state).toEqual({ ...userSliceInitialState, isLoading: true });
     });
     test('Тестирование rejected для запроса fetchUpdateUser', () => {
       const action = {
         type: fetchUpdateUser.rejected.type,
         error: { message: 'Error' }
       };
-      const state = userSlice(initialState, action);
+      const state = userSlice(userSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...userSliceInitialState,
         isLoading: false,
         error: 'Error'
       });
@@ -72,9 +72,9 @@ describe('[userSlice], тестирование слайса', () => {
         type: fetchUpdateUser.fulfilled.type,
         payload: mockUserData
       };
-      const state = userSlice(initialState, action);
+      const state = userSlice(userSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...userSliceInitialState,
         userInfo: mockUserData,
         isLoading: false
       });
@@ -83,17 +83,17 @@ describe('[userSlice], тестирование слайса', () => {
   describe('[fetchUser], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchUser', () => {
       const action = { type: fetchUser.pending.type };
-      const state = userSlice(initialState, action);
-      expect(state).toEqual({ ...initialState, isLoading: true });
+      const state = userSlice(userSliceInitialState, action);
+      expect(state).toEqual({ ...userSliceInitialState, isLoading: true });
     });
     test('Тестирование rejected для запроса fetchUser', () => {
       const action = {
         type: fetchUser.rejected.type,
         error: { message: 'Error' }
       };
-      const state = userSlice(initialState, action);
+      const state = userSlice(userSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...userSliceInitialState,
         isLoading: false,
         userInfo: { name: '', email: '' },
         isAuth: false,
@@ -105,9 +105,9 @@ describe('[userSlice], тестирование слайса', () => {
         type: fetchUser.fulfilled.type,
         payload: mockUserData
       };
-      const state = userSlice(initialState, action);
+      const state = userSlice(userSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...userSliceInitialState,
         userInfo: mockUserData,
         isLoading: false,
         isAuth: true
@@ -117,17 +117,17 @@ describe('[userSlice], тестирование слайса', () => {
   describe('[fetchRegisterUser], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchRegisterUser', () => {
       const action = { type: fetchRegisterUser.pending.type };
-      const state = userSlice(initialState, action);
-      expect(state).toEqual({ ...initialState, isLoading: true });
+      const state = userSlice(userSliceInitialState, action);
+      expect(state).toEqual({ ...userSliceInitialState, isLoading: true });
     });
     test('Тестирование rejected для запроса fetchRegisterUser', () => {
       const action = {
         type: fetchRegisterUser.rejected.type,
         error: { message: 'Error' }
       };
-      const state = userSlice(initialState, action);
+      const state = userSlice(userSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...userSliceInitialState,
         isLoading: false,
         error: 'Error'
       });
@@ -137,9 +137,9 @@ describe('[userSlice], тестирование слайса', () => {
         type: fetchRegisterUser.fulfilled.type,
         payload: mockUserData
       };
-      const state = userSlice(initialState, action);
+      const state = userSlice(userSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...userSliceInitialState,
         userInfo: mockUserData,
         isLoading: false,
         isAuth: true
@@ -149,17 +149,17 @@ describe('[userSlice], тестирование слайса', () => {
   describe('[fetchLoginUser], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchLoginUser', () => {
       const action = { type: fetchLoginUser.pending.type };
-      const state = userSlice(initialState, action);
-      expect(state).toEqual({ ...initialState, isLoading: true });
+      const state = userSlice(userSliceInitialState, action);
+      expect(state).toEqual({ ...userSliceInitialState, isLoading: true });
     });
     test('Тестирование rejected для запроса fetchLoginUser', () => {
       const action = {
         type: fetchLoginUser.rejected.type,
         error: { message: 'Error' }
       };
-      const state = userSlice(initialState, action);
+      const state = userSlice(userSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...userSliceInitialState,
         isLoading: false,
         isAuth: false,
         userInfo: { name: '', email: '' },
@@ -171,9 +171,9 @@ describe('[userSlice], тестирование слайса', () => {
         type: fetchLoginUser.fulfilled.type,
         payload: mockUserData
       };
-      const state = userSlice(initialState, action);
+      const state = userSlice(userSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...userSliceInitialState,
         userInfo: mockUserData,
         isLoading: false,
         isAuth: true
@@ -181,25 +181,25 @@ describe('[userSlice], тестирование слайса', () => {
     });
   });
   test('[initUser], тестирование запроса', () => {
-    const state = userSlice(initialState, initUser());
+    const state = userSlice(userSliceInitialState, initUser());
     expect(state).toEqual({
-      ...initialState,
+      ...userSliceInitialState,
       isInit: true
     });
   });
   test('[setErrorText], тестирование запроса', () => {
-    const state = userSlice(initialState, setErrorText('Error'));
+    const state = userSlice(userSliceInitialState, setErrorText('Error'));
     expect(state).toEqual({
-      ...initialState,
+      ...userSliceInitialState,
       error: 'Error'
     });
   });
   test('[removeErrorText], тестирование запроса', () => {
-    const mockInitialState = {
-      ...initialState,
+    const mockuserSliceInitialState = {
+      ...userSliceInitialState,
       error: 'Error text'
     };
-    const state = userSlice(mockInitialState, removeErrorText());
-    expect(state).toEqual(initialState);
+    const state = userSlice(mockuserSliceInitialState, removeErrorText());
+    expect(state).toEqual(userSliceInitialState);
   });
 });

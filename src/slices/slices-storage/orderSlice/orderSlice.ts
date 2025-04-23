@@ -10,7 +10,7 @@ export type TOrderInitialState = {
   error: string;
 };
 
-export const initialState: TOrderInitialState = {
+const initialState: TOrderInitialState = {
   isLoading: false,
   orderRequest: false,
   userOrders: [],
@@ -101,5 +101,5 @@ export const {
 } = orderSlice.selectors;
 
 export const { clearOrderModalData } = orderSlice.actions;
-
+export const orderSliceInitialState = initialState;
 export default orderSlice.reducer;

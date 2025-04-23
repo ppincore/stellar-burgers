@@ -11,7 +11,7 @@ export type TFeedInitialState = {
   error: string;
 };
 
-export const initialState: TFeedInitialState = {
+const initialState: TFeedInitialState = {
   isLoading: false,
   orders: [],
   userOrders: [],
@@ -68,5 +68,5 @@ export const {
 } = feedSlice.selectors;
 
 export const { removeOrders, removeUserOrders } = feedSlice.actions;
-
+export const feedSliceInitialState = initialState;
 export default feedSlice.reducer;

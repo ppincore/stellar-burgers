@@ -4,7 +4,7 @@ import {
   fetchOrderByNumber,
   fetchUserOrders,
   fetchNewOrder,
-  initialState,
+  orderSliceInitialState,
   TOrderInitialState
 } from './orderSlice';
 import orderSlice from './orderSlice';
@@ -23,9 +23,12 @@ describe('[ingredientSlice], тестирование слайса', () => {
 
   describe('[fetchOrderByNumber], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchOrderByNumber', () => {
-      const state = orderSlice(initialState, fetchOrderByNumber.pending('', 1));
+      const state = orderSlice(
+        orderSliceInitialState,
+        fetchOrderByNumber.pending('', 1)
+      );
       expect(state).toEqual({
-        ...initialState,
+        ...orderSliceInitialState,
         isLoading: true
       });
     });
@@ -34,9 +37,9 @@ describe('[ingredientSlice], тестирование слайса', () => {
         type: fetchOrderByNumber.rejected.type,
         error: { message: 'Error' }
       };
-      const state = orderSlice(initialState, action);
+      const state = orderSlice(orderSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...orderSliceInitialState,
         isLoading: false,
         error: 'Error'
       });
@@ -48,22 +51,25 @@ describe('[ingredientSlice], тестирование слайса', () => {
         order: mockOrder
       };
       const state = orderSlice(
-        initialState,
+        orderSliceInitialState,
         fetchOrderByNumber.fulfilled(payload.order, '', 1)
       );
       expect(state).toEqual({
-        ...initialState,
+        ...orderSliceInitialState,
         isLoading: false,
         orderRequest: false,
-        orderModalData: mockOrder
+        orderModalData: payload.order
       });
     });
   });
   describe('[fetchUserOrders], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchUserOrders', () => {
-      const state = orderSlice(initialState, fetchUserOrders.pending(''));
+      const state = orderSlice(
+        orderSliceInitialState,
+        fetchUserOrders.pending('')
+      );
       expect(state).toEqual({
-        ...initialState,
+        ...orderSliceInitialState,
         isLoading: true
       });
     });
@@ -72,9 +78,9 @@ describe('[ingredientSlice], тестирование слайса', () => {
         type: fetchUserOrders.rejected.type,
         error: { message: 'Error' }
       };
-      const state = orderSlice(initialState, action);
+      const state = orderSlice(orderSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...orderSliceInitialState,
         isLoading: false,
         error: 'Error'
       });
@@ -86,21 +92,24 @@ describe('[ingredientSlice], тестирование слайса', () => {
         orders: [mockOrder]
       };
       const state = orderSlice(
-        initialState,
+        orderSliceInitialState,
         fetchUserOrders.fulfilled(payload.orders, '')
       );
       expect(state).toEqual({
-        ...initialState,
+        ...orderSliceInitialState,
         isLoading: false,
-        userOrders: [mockOrder]
+        userOrders: mockOrder
       });
     });
   });
   describe('[fetchNewOrder], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchNewOrder', () => {
-      const state = orderSlice(initialState, fetchNewOrder.pending('', []));
+      const state = orderSlice(
+        orderSliceInitialState,
+        fetchNewOrder.pending('', [])
+      );
       expect(state).toEqual({
-        ...initialState,
+        ...orderSliceInitialState,
         isLoading: true,
         orderRequest: true
       });
@@ -110,9 +119,9 @@ describe('[ingredientSlice], тестирование слайса', () => {
         type: fetchNewOrder.rejected.type,
         error: { message: 'Error' }
       };
-      const state = orderSlice(initialState, action);
+      const state = orderSlice(orderSliceInitialState, action);
       expect(state).toEqual({
-        ...initialState,
+        ...orderSliceInitialState,
         isLoading: false,
         error: 'Error'
       });
@@ -124,11 +133,11 @@ describe('[ingredientSlice], тестирование слайса', () => {
         order: mockOrder
       };
       const state = orderSlice(
-        initialState,
+        orderSliceInitialState,
         fetchNewOrder.fulfilled(payload, '', [''])
       );
       expect(state).toEqual({
-        ...initialState,
+        ...orderSliceInitialState,
         isLoading: false,
         orderRequest: false,
         orderModalData: mockOrder
@@ -136,7 +145,7 @@ describe('[ingredientSlice], тестирование слайса', () => {
     });
   });
   test('Тестирование очистки данных для модального окна', () => {
-    const mockInitialState: TOrderInitialState = {
+    const mockorderSliceInitialState: TOrderInitialState = {
       isLoading: false,
       orderRequest: false,
       userOrders: [],
@@ -144,7 +153,7 @@ describe('[ingredientSlice], тестирование слайса', () => {
       error: ''
     };
     const action = clearOrderModalData();
-    const state = orderSlice(mockInitialState, action);
+    const state = orderSlice(mockorderSliceInitialState, action);
     expect(state.orderModalData).toBe(null);
   });
 });

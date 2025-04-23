@@ -24,7 +24,7 @@ export type TUserInitialState = {
   error: string;
 };
 
-export const initialState: TUserInitialState = {
+const initialState: TUserInitialState = {
   isLoading: false,
   isAuth: false,
   isInit: false,
@@ -174,5 +174,5 @@ export const {
 } = userSlice.selectors;
 
 export const { initUser, setErrorText, removeErrorText } = userSlice.actions;
-
+export const userSliceInitialState = initialState;
 export default userSlice.reducer;

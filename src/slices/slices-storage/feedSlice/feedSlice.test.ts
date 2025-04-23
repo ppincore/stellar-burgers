@@ -4,7 +4,7 @@ import {
   removeUserOrders,
   TFeedInitialState,
   fetchFeed,
-  initialState
+  feedSliceInitialState
 } from './feedSlice';
 import feedSlice from './feedSlice';
 import { TOrder } from '@utils-types';
@@ -39,7 +39,6 @@ describe('[feedSlice], тестирование слайса', () => {
     error: ''
   };
 
-
   test('Тестирование очистки заказов', () => {
     const action = removeOrders();
     const state = feedSlice(mockInitialState, action);
@@ -55,17 +54,17 @@ describe('[feedSlice], тестирование слайса', () => {
       type: fetchFeed.rejected.type,
       error: { message: 'Error' }
     };
-    const state = feedSlice(initialState, action);
+    const state = feedSlice(feedSliceInitialState, action);
     expect(state).toEqual({
-      ...initialState,
+      ...feedSliceInitialState,
       isLoading: false,
       error: 'Error'
     });
   });
   test('Тестирование pending запроса', () => {
-    const state = feedSlice(initialState, fetchFeed.pending(''));
+    const state = feedSlice(feedSliceInitialState, fetchFeed.pending(''));
     expect(state).toEqual({
-      ...initialState,
+      ...feedSliceInitialState,
       isLoading: true
     });
   });
@@ -77,9 +76,12 @@ describe('[feedSlice], тестирование слайса', () => {
       total: 10,
       totalToday: 5
     };
-    const state = feedSlice(initialState, fetchFeed.fulfilled(payload, ''));
+    const state = feedSlice(
+      feedSliceInitialState,
+      fetchFeed.fulfilled(payload, '')
+    );
     expect(state).toEqual({
-      ...initialState,
+      ...feedSliceInitialState,
       isLoading: false,
       orders: orders,
       totalOrders: 10,
