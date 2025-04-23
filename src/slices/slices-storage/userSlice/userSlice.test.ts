@@ -12,9 +12,15 @@ import {
 } from './userSlice';
 
 import userSlice from './userSlice';
-import { error } from 'console';
+import { userInfo } from 'os';
+import { TUser } from '@utils-types';
 
 describe('[userSlice], тестирование слайса', () => {
+  const mockUserData: TUser = {
+    name: 'Admin',
+    email: 'admin@example.com'
+  };
+
   describe('[fetchLogout], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchLogout', () => {
       const action = { type: fetchLogout.pending.type };
@@ -33,7 +39,16 @@ describe('[userSlice], тестирование слайса', () => {
         error: 'Error'
       });
     });
-    test('Тестирование fulfilled для запроса fetchLogout', () => {});
+    test('Тестирование fulfilled для запроса fetchLogout', () => {
+      const action = { type: fetchLogout.fulfilled.type };
+      const state = userSlice(initialState, action);
+      expect(state).toEqual({
+        ...initialState,
+        userInfo: { name: '', email: '' },
+        isLoading: false,
+        isAuth: false
+      });
+    });
   });
   describe('[fetchUpdateUser], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchUpdateUser', () => {
@@ -53,7 +68,18 @@ describe('[userSlice], тестирование слайса', () => {
         error: 'Error'
       });
     });
-    test('Тестирование fulfilled для запроса fetchUpdateUser', () => {});
+    test('Тестирование fulfilled для запроса fetchUpdateUser', () => {
+      const action = {
+        type: fetchUpdateUser.fulfilled.type,
+        payload: mockUserData
+      };
+      const state = userSlice(initialState, action);
+      expect(state).toEqual({
+        ...initialState,
+        userInfo: mockUserData,
+        isLoading: false
+      });
+    });
   });
   describe('[fetchUser], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchUser', () => {
@@ -75,7 +101,19 @@ describe('[userSlice], тестирование слайса', () => {
         error: 'Error'
       });
     });
-    test('Тестирование fulfilled для запроса fetchUser', () => {});
+    test('Тестирование fulfilled для запроса fetchUser', () => {
+      const action = {
+        type: fetchUser.fulfilled.type,
+        payload: mockUserData
+      };
+      const state = userSlice(initialState, action);
+      expect(state).toEqual({
+        ...initialState,
+        userInfo: mockUserData,
+        isLoading: false,
+        isAuth: true
+      });
+    });
   });
   describe('[fetchRegisterUser], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchRegisterUser', () => {
@@ -95,7 +133,19 @@ describe('[userSlice], тестирование слайса', () => {
         error: 'Error'
       });
     });
-    test('Тестирование fulfilled для запроса fetchRegisterUser', () => {});
+    test('Тестирование fulfilled для запроса fetchRegisterUser', () => {
+      const action = {
+        type: fetchRegisterUser.fulfilled.type,
+        payload: mockUserData
+      };
+      const state = userSlice(initialState, action);
+      expect(state).toEqual({
+        ...initialState,
+        userInfo: mockUserData,
+        isLoading: false,
+        isAuth: true
+      });
+    });
   });
   describe('[fetchLoginUser], тестирование запроса', () => {
     test('Тестирование pending для запроса fetchLoginUser', () => {
@@ -117,7 +167,19 @@ describe('[userSlice], тестирование слайса', () => {
         error: 'Error'
       });
     });
-    test('Тестирование fulfilled для запроса fetchLoginUser', () => {});
+    test('Тестирование fulfilled для запроса fetchLoginUser', () => {
+      const action = {
+        type: fetchLoginUser.fulfilled.type,
+        payload: mockUserData
+      };
+      const state = userSlice(initialState, action);
+      expect(state).toEqual({
+        ...initialState,
+        userInfo: mockUserData,
+        isLoading: false,
+        isAuth: true
+      });
+    });
   });
   test('[initUser], тестирование запроса', () => {
     const state = userSlice(initialState, initUser());
