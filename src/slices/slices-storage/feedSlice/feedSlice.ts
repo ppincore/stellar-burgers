@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-import { getFeedsApi } from '../../../utils/burger-api';
+import { getFeedsApi } from '@api';
 
 export type TFeedInitialState = {
   isLoading: boolean;

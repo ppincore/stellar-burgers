@@ -13,7 +13,7 @@ import {
   updateUserApi,
   getUserApi,
   logoutApi
-} from '../../../utils/burger-api';
+} from '@api';
 import { setCookie, deleteCookie } from '../../../utils/cookie';
 
 export type TUserInitialState = {

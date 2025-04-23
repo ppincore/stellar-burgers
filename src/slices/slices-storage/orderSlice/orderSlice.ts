@@ -1,10 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-import {
-  getOrdersApi,
-  orderBurgerApi,
-  getOrderByNumberApi
-} from '../../../utils/burger-api';
+import { getOrdersApi, orderBurgerApi, getOrderByNumberApi } from '@api';
 
 export type TOrderInitialState = {
   isLoading: boolean;

@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import {
   fetchLogout,
   fetchUpdateUser,
@@ -12,7 +12,6 @@ import {
 } from './userSlice';
 
 import userSlice from './userSlice';
-import { userInfo } from 'os';
 import { TUser } from '@utils-types';
 
 describe('[userSlice], тестирование слайса', () => {
