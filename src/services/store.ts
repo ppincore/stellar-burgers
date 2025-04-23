@@ -9,7 +9,7 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
-console.log(constructorSlice)
+console.log(constructorSlice);
 const rootReducer = combineReducers({
   constructorSlice: constructorSlice,
   feedSlice: feedSlice,

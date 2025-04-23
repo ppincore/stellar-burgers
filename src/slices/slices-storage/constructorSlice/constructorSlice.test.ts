@@ -84,7 +84,7 @@ describe('[constructorSlice], тестирование слайса', () => {
         bun: {
           price: 0
         },
-        ingredients: [ingredientSecond.payload, ingredientFirst.payload, ]
+        ingredients: [ingredientSecond.payload, ingredientFirst.payload]
       }
     };
     const state = constructorSlice(

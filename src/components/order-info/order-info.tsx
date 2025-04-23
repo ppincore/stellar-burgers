@@ -12,7 +12,6 @@ import {
 import { useSelector, useDispatch } from '../../services/store';
 import { useLocation, useParams } from 'react-router-dom';
 
-
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
   const params = Number(useParams().number);
