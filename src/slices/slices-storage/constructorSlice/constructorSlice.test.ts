@@ -6,7 +6,8 @@ import {
   deleteIngredient,
   addIngredient,
   resetConsructor,
-  TConstructorInitialState
+  TConstructorInitialState,
+  constructorSliceInitialState
 } from './constructorSlice';
 import constructorSlice from './constructorSlice';
 
@@ -41,22 +42,14 @@ describe('[constructorSlice], тестирование слайса', () => {
     image_large: ''
   };
 
-  const mockInitialState: TConstructorInitialState = {
-    constructorItems: {
-      bun: {
-        price: 0
-      },
-      ingredients: []
-    }
-  };
-
   test('Тестирование добавления ингридиента', () => {
     const action = addIngredient(mockIngritientRING);
-    const state = constructorSlice(mockInitialState, action);
+    const state = constructorSlice(constructorSliceInitialState, action);
     expect(state.constructorItems.ingredients).toHaveLength(1);
     expect(state.constructorItems.ingredients[0]).toEqual(mockIngritientRING);
     expect(state.constructorItems.ingredients[0]).toHaveProperty('_id');
   });
+
   test('Тестирование перемещения ингридиента вверх', () => {
     const ingredientFirst = addIngredient(mockIngritientCHEESE);
     const ingredientSecond = addIngredient(mockIngritientRING);
@@ -76,6 +69,7 @@ describe('[constructorSlice], тестирование слайса', () => {
       ingredientSecond.payload
     );
   });
+
   test('Тестирование перемещение игредиента вниз', () => {
     const ingredientFirst = addIngredient(mockIngritientCHEESE);
     const ingredientSecond = addIngredient(mockIngritientRING);
@@ -95,6 +89,7 @@ describe('[constructorSlice], тестирование слайса', () => {
       ingredientSecond.payload
     );
   });
+
   test('Тестирование удаления ингридиента', () => {
     const action = addIngredient(mockIngritientRING);
     const initialState: TConstructorInitialState = {
@@ -111,6 +106,7 @@ describe('[constructorSlice], тестирование слайса', () => {
     );
     expect(state.constructorItems.ingredients).toHaveLength(0);
   });
+
   test('Тестирование очистки конструктора', () => {
     const initialState: TConstructorInitialState = {
       constructorItems: {
@@ -125,6 +121,8 @@ describe('[constructorSlice], тестирование слайса', () => {
       }
     };
     const state = constructorSlice(initialState, resetConsructor());
-    expect(state.constructorItems).toEqual(mockInitialState.constructorItems);
+    expect(state.constructorItems).toEqual(
+      constructorSliceInitialState.constructorItems
+    );
   });
 });

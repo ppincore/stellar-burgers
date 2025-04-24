@@ -10,7 +10,7 @@ import {
 import orderSlice from './orderSlice';
 import { TOrder } from '@utils-types';
 
-describe('[ingredientSlice], тестирование слайса', () => {
+describe('[orderSlice], тестирование слайса', () => {
   const mockOrder: TOrder = {
     _id: '68062e55e8e61d001cec3b9d',
     ingredients: ['1', '2', '3'],
@@ -98,7 +98,7 @@ describe('[ingredientSlice], тестирование слайса', () => {
       expect(state).toEqual({
         ...orderSliceInitialState,
         isLoading: false,
-        userOrders: mockOrder
+        userOrders: [mockOrder]
       });
     });
   });

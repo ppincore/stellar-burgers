@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1745410198200" clover="3.2.0">
-  <project timestamp="1745410198200" name="All files">
-    <metrics statements="771" coveredstatements="580" conditionals="55" coveredconditionals="53" methods="50" coveredmethods="18" elements="876" coveredelements="651" complexity="0" loc="771" ncloc="771" packages="6" files="7" classes="7"/>
+<coverage generated="1745476976904" clover="3.2.0">
+  <project timestamp="1745476976904" name="All files">
+    <metrics statements="772" coveredstatements="581" conditionals="55" coveredconditionals="53" methods="50" coveredmethods="18" elements="877" coveredelements="652" complexity="0" loc="772" ncloc="772" packages="6" files="7" classes="7"/>
     <package name="slices.slices-storage.constructorSlice">
-      <metrics statements="86" coveredstatements="85" conditionals="11" coveredconditionals="10" methods="7" coveredmethods="6"/>
+      <metrics statements="87" coveredstatements="86" conditionals="11" coveredconditionals="10" methods="7" coveredmethods="6"/>
       <file name="constructorSlice.ts" path="C:\Users\bogsc\Desktop\YP\stellar-burgers\src\slices\slices-storage\constructorSlice\constructorSlice.ts">
-        <metrics statements="86" coveredstatements="85" conditionals="11" coveredconditionals="10" methods="7" coveredmethods="6"/>
+        <metrics statements="87" coveredstatements="86" conditionals="11" coveredconditionals="10" methods="7" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -92,6 +92,7 @@
         <line num="84" count="1" type="stmt"/>
         <line num="85" count="1" type="stmt"/>
         <line num="86" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
       </file>
     </package>
     <package name="slices.slices-storage.feedSlice">
