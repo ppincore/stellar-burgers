@@ -1,4 +1,9 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  PayloadAction,
+  createAsyncThunk,
+  isAction
+} from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import {
   TLoginData,
@@ -9,7 +14,7 @@ import {
   getUserApi,
   logoutApi
 } from '@api';
-import { setCookie, deleteCookie } from '../../utils/cookie';
+import { setCookie, deleteCookie } from '../../../utils/cookie';
 
 export type TUserInitialState = {
   isLoading: boolean;
@@ -59,6 +64,7 @@ const userSlice = createSlice({
         state.userInfo = { name: '', email: '' };
         deleteCookie('accessToken');
         localStorage.removeItem('refreshToken');
+        state.error = action.error.message!;
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -95,8 +101,9 @@ const userSlice = createSlice({
       .addCase(fetchUpdateUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchUpdateUser.rejected, (state) => {
+      .addCase(fetchUpdateUser.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.error.message!;
       })
       .addCase(fetchUpdateUser.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -106,8 +113,9 @@ const userSlice = createSlice({
       .addCase(fetchLogout.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchLogout.rejected, (state) => {
+      .addCase(fetchLogout.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.error.message!;
       })
       .addCase(fetchLogout.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -166,5 +174,5 @@ export const {
 } = userSlice.selectors;
 
 export const { initUser, setErrorText, removeErrorText } = userSlice.actions;
-
+export const userSliceInitialState = initialState;
 export default userSlice.reducer;

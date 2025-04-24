@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-import { getFeedsApi, getOrdersApi } from '@api';
+import { getFeedsApi } from '@api';
 
 export type TFeedInitialState = {
   isLoading: boolean;
@@ -42,8 +42,9 @@ const feedSlice = createSlice({
       .addCase(fetchFeed.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchFeed.rejected, (state) => {
+      .addCase(fetchFeed.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.error.message!;
       })
       .addCase(fetchFeed.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -67,5 +68,5 @@ export const {
 } = feedSlice.selectors;
 
 export const { removeOrders, removeUserOrders } = feedSlice.actions;
-
+export const feedSliceInitialState = initialState;
 export default feedSlice.reducer;
